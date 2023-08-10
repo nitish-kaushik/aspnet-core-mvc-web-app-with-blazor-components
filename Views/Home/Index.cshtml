@@ -1,0 +1,21 @@
+﻿@using BlazorIntegrationInMVC.Components
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <p>Using Blazor Components inside ASP.NET Core MVC Application</p>
+</div>
+
+<div class="row shadow-sm p-3">
+    <div class="col-md-6">
+        @(await Html.RenderComponentAsync<FetchData>(RenderMode.Server))
+    </div>
+    <div class="col-md-6">
+        @(await Html.RenderComponentAsync<FormExample>(RenderMode.Server))
+
+        @(await Html.RenderComponentAsync<Counter>(RenderMode.Server))
+    </div>
+</div>
+
+

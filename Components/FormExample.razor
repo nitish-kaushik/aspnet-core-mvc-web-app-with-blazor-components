@@ -1,0 +1,41 @@
+﻿@using System.ComponentModel.DataAnnotations;
+
+<h1>Form Example</h1>
+<EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+   <div class="d-flex flex-column d-table gap-2">
+        <InputText @bind-Value="exampleModel.Name" />
+        <InputText @bind-Value="exampleModel.Email" />
+
+
+        <button type="submit">Submit</button>
+</div>
+</EditForm>
+
+@code {
+    private ExampleModel exampleModel = new();
+    private EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(exampleModel);
+    }
+
+    private void HandleValidSubmit()
+    {
+        var data = editContext.Model;
+    }
+
+    public class ExampleModel
+    {
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string? Name { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Enter a valid email.")]
+        public string? Email { get; set; }
+    }
+}
